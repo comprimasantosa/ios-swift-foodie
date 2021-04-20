@@ -13,6 +13,16 @@ struct HomeView: View {
   var body: some View {
     NavigationView {
       VStack {
+        if viewModel.isLoading {
+          Text("Fetching data...")
+          ProgressView()
+        }
+        if !viewModel.errorMessage.isEmpty {
+          Text("Error while fetching data...")
+          Button("Try Again") {
+            viewModel.getFoods()
+          }
+        }
         if !viewModel.foodsData.isEmpty {
           ScrollView {
             LazyVStack {
